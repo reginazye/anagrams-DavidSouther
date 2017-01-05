@@ -16,6 +16,7 @@
 
 package com.google.engedu.anagrams;
 
+import android.provider.UserDictionary;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
@@ -63,13 +64,7 @@ public class AnagramDictionary {
     }
 
     public boolean isGoodWord(String word, String base) {
-        //
-        // Your code here
-        //
-        if (base.equals(word)){
-            return false;
-        }
-        return isAnagram(word.toUpperCase(), base.toUpperCase());
+        return getAnagramsWithOneMoreLetter(base).contains(word);
         }
 
     public List<String> getAnagrams(String targetWord) {
@@ -112,7 +107,7 @@ public class AnagramDictionary {
     public List<String> getAnagramsWithOneMoreLetter(String word) {
         ArrayList<String> result = new ArrayList<String>();
 
-        for (int c='a';c<='z';c++){
+        for (char c='a';c<='z';c++){
             String temp = sortLetters(word+c);
             result.addAll(getAnagrams(temp));
         }
@@ -125,6 +120,18 @@ public class AnagramDictionary {
         //
         // Your code here
         //
-        return "stop";
+        String word;
+        List<String> anagrams = new ArrayList<>();
+        String genword;
+        do {
+            word = words.get(Math.abs(random.nextInt())% words.size());
+            if (word.length()<DEFAULT_WORD_LENGTH
+                    || word.length()>MAX_WORD_LENGTH) {
+                continue;
+            }
+            anagrams = getAnagramsWithOneMoreLetter(word);
+        } while(anagrams.size()<MIN_NUM_ANAGRAMS);
+            return word;
     }
+
 }

@@ -45,7 +45,7 @@ public class AnagramDictionaryTest {
     @Test
     public void getAnagrams(){
         assertArrayEquals(
-                anagrams.getAnagramsWithOneMoreLetter("typo").toArray(),
+                anagrams.getAnagrams("typo").toArray(),
                 new String[]{"typo"}
         );
     }
